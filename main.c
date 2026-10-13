@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "yatzy.h"
 
 int main() {
     srand(time(NULL));  // seed with current time
@@ -24,9 +25,9 @@ int main() {
 
     char players[6][20] = {0};
 
-    for(int player = 1; player <= nr_of_players; player ++)
+    for(int player = 0; player < nr_of_players; player ++)
     {
-        printf("Enter player %d name:  ", player);
+        printf("Enter player %d name:  ", player + 1);
         scanf("%19s", players[player]);
         printf("Add player %s\n", players[player]);
     }
@@ -44,5 +45,17 @@ int main() {
     }
 
     
+    char *players_ptr[6];
+    int *score_board_ptr[6];
+
+    for(int i = 0; i < 6; i++)
+    {
+        players_ptr[i] = &players[i][0];
+        printf("players_ptr[%d] has value %p\n", i,(void *)&players[i][0]);
+        score_board_ptr[i] = &score_board[i][0];
+    }
+
+    play_yatzy(players_ptr, score_board_ptr, nr_of_players);
+
     return 0;
 }
